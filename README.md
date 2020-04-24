@@ -1,18 +1,28 @@
 
 # open-link
 
+Open highlighed (selected) link in Google Chrome
+```
+$ open-link --selection
+```
+ 
 Open clipboard link in Google Chrome:
 
 ```
 $ open-link --clipboard
 ```
 
+## Install
 
-Open selected-text link in Google Chrome
 ```
-$ open-link --selection
+pip install open-link
+
+# You might need to install xclip:
+sudo apt-get install -y xclip
 ```
 
-Supported OS: Ubuntu 18.04
+Tested on:
+- Ubuntu 18.04
+
 
 
