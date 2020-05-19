@@ -56,7 +56,9 @@ def main(context: Context, clipboard_flag, selection_flag, multi):
 
         _open_in_chrome(result)
     else:
-        print(context.get_help())
+        result = text_from_clipboard
+        url = f'https://www.google.com/search?q={result}'
+        _open_in_chrome(url)
 
 
 def _print_message(message):
