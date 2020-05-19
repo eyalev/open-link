@@ -50,15 +50,16 @@ def main(context: Context, clipboard_flag, selection_flag, multi):
         elif I(text_from_clipboard).is_url:
             result = text_from_clipboard
         else:
-            message = f'Not a valid URL | selection: {text_from_selection} | clipboard: {text_from_clipboard}'
-            _print_message(message)
-            return False
+            if text_from_clipboard != '':
+                result = f'https://www.google.com/search?q={text_from_clipboard}'
+            else:
+                message = f'Not a valid input | selection: {text_from_selection} | clipboard: {text_from_clipboard}'
+                _print_message(message)
+                return False
 
         _open_in_chrome(result)
     else:
-        result = text_from_clipboard
-        url = f'https://www.google.com/search?q={result}'
-        _open_in_chrome(url)
+        print(context.get_help())
 
 
 def _print_message(message):
