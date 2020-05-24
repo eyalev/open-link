@@ -31,6 +31,10 @@ def main(context: Context, clipboard_flag, selection_flag, multi):
 
     text_from_clipboard = _get_clipboard()
 
+    text_from_stdin = ''
+    if not click.get_text_stream('stdin').isatty():
+        text_from_stdin = click.get_text_stream('stdin').read().strip()
+
     text_from_selection_is_url = I(text_from_selection).is_url
     text_from_clipboard_is_url = I(text_from_clipboard).is_url
 
@@ -44,11 +48,13 @@ def main(context: Context, clipboard_flag, selection_flag, multi):
             _open_in_chrome(text_from_clipboard)
         else:
             _print_message(f'Not valid URL: {text_from_clipboard}')
-    elif multi:
+    else:
         if I(text_from_selection).is_url:
             result = text_from_selection
         elif I(text_from_clipboard).is_url:
             result = text_from_clipboard
+        elif I(text_from_stdin).is_url:
+            result = text_from_stdin
         else:
             if text_from_clipboard != '':
                 result = f'https://www.google.com/search?q={text_from_clipboard}'
@@ -58,8 +64,6 @@ def main(context: Context, clipboard_flag, selection_flag, multi):
                 return False
 
         _open_in_chrome(result)
-    else:
-        print(context.get_help())
 
 
 def _print_message(message):
