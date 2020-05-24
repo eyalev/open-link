@@ -10,11 +10,12 @@ from pobject import I
 
 
 @click.command()
+@click.argument('link', required=False)
 @click.option('--clipboard', 'clipboard_flag', is_flag=True)
 @click.option('--selection', 'selection_flag', is_flag=True)
 @click.option('--multi', is_flag=True)
 @click.pass_context
-def main(context: Context, clipboard_flag, selection_flag, multi):
+def main(context: Context, link, clipboard_flag, selection_flag, multi):
 
     """
     Get text from selection or clipboard and open it in Google Chrome
@@ -23,6 +24,10 @@ def main(context: Context, clipboard_flag, selection_flag, multi):
 
     E.g URL: https://stackoverflow.com
     """
+
+    if link:
+        _open_in_chrome(link)
+        return True
 
     text_from_selection = _get_selection()
 
