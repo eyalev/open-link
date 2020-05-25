@@ -63,6 +63,8 @@ def main(context: Context, link, clipboard_flag, selection_flag, multi):
         else:
             if text_from_clipboard != '':
                 result = f'https://www.google.com/search?q={text_from_clipboard}'
+            elif text_from_selection != '':
+                result = f'https://www.google.com/search?q={text_from_selection}'
             else:
                 message = f'Not a valid input | selection: {text_from_selection} | clipboard: {text_from_clipboard}'
                 _print_message(message)
