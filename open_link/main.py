@@ -43,7 +43,13 @@ def main(context: Context, link, clipboard_flag, selection_flag, multi):
     text_from_selection_is_url = I(text_from_selection).is_url
     text_from_clipboard_is_url = I(text_from_clipboard).is_url
 
-    if selection_flag:
+    if text_from_stdin:
+        if I(text_from_stdin).is_url:
+            _open_in_chrome(text_from_stdin)
+        else:
+            result = f'https://www.google.com/search?q={text_from_stdin}'
+            _open_in_chrome(result)
+    elif selection_flag:
         if text_from_selection_is_url:
             _open_in_chrome(text_from_selection)
         else:
@@ -58,8 +64,6 @@ def main(context: Context, link, clipboard_flag, selection_flag, multi):
             result = text_from_selection
         elif I(text_from_clipboard).is_url:
             result = text_from_clipboard
-        elif I(text_from_stdin).is_url:
-            result = text_from_stdin
         else:
             if text_from_clipboard != '':
                 result = f'https://www.google.com/search?q={text_from_clipboard}'
